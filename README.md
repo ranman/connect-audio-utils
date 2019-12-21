@@ -1,18 +1,25 @@
-<<<<<<< HEAD
-# connect-audio-utils
-=======
-# Welcome to your CDK TypeScript project!
+# Connect Audio Utils
 
-This is a blank project for TypeScript development with CDK.
+## Build Instructions
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+1. First build the layer:
+
+    ```bash
+    cd resources/connect-audio-utils-layer
+    mkdir bin/
+    curl -s https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz | tar -xJC bin --strip=1 ffmpeg-4.2.1-amd64-static/ffmpeg
+    docker run --rm -v $(pwd):/foo -w /foo lambci/lambda:build-python3.8 pip3 install -r requirements.txt -t python
+    zip -r9 layer.zip bin python -x "*.pyc
+    ```
+
+2. Next run `npm run build`
+3. Finally run `cdk deploy`
 
 ## Useful commands
 
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
->>>>>>> Initial commit
+* `npm run build`   compile typescript to js
+* `npm run watch`   watch for changes and compile
+* `npm run test`    perform the jest unit tests
+* `cdk deploy`      deploy this stack to your default AWS account/region
+* `cdk diff`        compare deployed stack with current state
+* `cdk synth`       emits the synthesized CloudFormation template

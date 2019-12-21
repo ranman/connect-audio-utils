@@ -1,5 +1,61 @@
 # Connect Audio Utils
 
+This is a set of lambda and ffmpeg powered tools for working with audio from Amazon Connect
+
+## Tools
+
+### Connect Audio Utils Layer
+
+This layer includes:
+
+* statically compiled ffmpeg
+* boto3
+* [pydub](https://github.com/jiaaro/pydub)
+* requests
+* [ffmpeg-python](https://github.com/kkroening/ffmpeg-python)
+
+### Overlay Audio
+
+This function overlays two audio tracks and accepts input in the following form:
+
+```json
+{
+    "sources": [{
+        "Bucket": "",
+        "Key": "",
+    },
+    {
+        "Bucket": "",
+        "Key": ""
+    }],
+    "target": {
+        "Bucket": "",
+        "Key": ""
+    }
+}
+```
+
+### Redact Audio
+
+This function mutes/removes sections of audio from a track based no timestamps and accepts input in the following form:
+
+```json
+{
+    "source": {
+        "Bucket": "",
+        "Key": ""
+    },
+    "target": {
+        "Bucket": "",
+        "Key": ""
+    },
+    "timestamps": [
+        {"begin": "1000", "end": "2000"},
+        {"begin": "5000", "end": "8000"}
+    ]
+}
+```
+
 ## Build Instructions
 
 1. First build the layer:
@@ -13,7 +69,7 @@
     ```
 
 2. Next run `npm run build`
-3. Finally run `cdk deploy`
+3. Deploy with run `cdk deploy`
 
 ## Useful commands
 

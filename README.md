@@ -22,7 +22,7 @@ This function overlays two audio tracks and accepts input in the following form:
 {
     "sources": [{
         "Bucket": "",
-        "Key": "",
+        "Key": ""
     },
     {
         "Bucket": "",
@@ -58,18 +58,21 @@ This function mutes/removes sections of audio from a track based no timestamps a
 
 ## Build Instructions
 
+1. Install CDK (npm i -g aws-cdk)
 1. First build the layer:
 
     ```bash
     cd resources/connect-audio-utils-layer
     mkdir bin/
-    curl -s https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz | tar -xJC bin --strip=1 ffmpeg-4.2.1-amd64-static/ffmpeg
+    curl -s https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz | tar -xJC bin --strip=1 'ffmpeg-*-amd64-static/ffmpeg'
     docker run --rm -v $(pwd):/foo -w /foo lambci/lambda:build-python3.8 pip3 install -r requirements.txt -t python
-    zip -r9 layer.zip bin python -x "*.pyc
+    zip -r9 layer.zip bin python -x "*.pyc"
     ```
 
-2. Next run `npm run build`
-3. Deploy with run `cdk deploy`
+1. Change back to root directory of project `cd ../..`
+1. Install deps: `npm install`
+1. Next run `npm run build`
+1. Deploy with run `cdk deploy` (you may need to run `cdk bootstrap` first)
 
 ## Useful commands
 
